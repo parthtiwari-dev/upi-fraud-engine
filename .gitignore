@@ -3,6 +3,7 @@
 /data/raw/
 /data/processed/full_upi_dataset.csv
 /data/processed/
+*.duckdb
 
 
 
