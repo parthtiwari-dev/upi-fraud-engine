@@ -1,3 +1,10 @@
+# Ignore the specific large data file
+/New folder
+/data/raw/
+/data/processed/full_upi_dataset.csv
+/data/processed/full_upi_dataset_injected.csv
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

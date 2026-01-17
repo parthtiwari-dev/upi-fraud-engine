@@ -1,0 +1,14 @@
+project_name: "upi_fraud_engine"
+
+# BUSINESS CONSTRAINTS
+alert_budget_pct: 0.005      # We flag the top 0.5% riskiest transactions
+label_delay_hours: 48        # Time it takes for a human to confirm fraud
+
+# SIMULATION SETTINGS (We will use these later to generate fake data)
+fraud_simulation:
+  device_ring_rate: 0.02     # 2% of transactions are organized crime rings
+  velocity_spike_rate: 0.01  # 1% are high-speed attacks
+
+# FEATURE SETTINGS
+features:
+  velocity_windows: [5, 60, 1440]  # Check last 5 mins, 1 hour, 1 day
