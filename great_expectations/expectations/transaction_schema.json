@@ -1,0 +1,84 @@
+{
+  "expectations": [
+    {
+      "id": "37007af8-bb02-43c8-8a5d-f2c6f977b29e",
+      "kwargs": {
+        "column": "transaction_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "bcc773d6-4c92-4c3a-88d7-8551433d5e89",
+      "kwargs": {
+        "column": "amount"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "9b2fad6c-21ee-40f2-8785-306f84210d86",
+      "kwargs": {
+        "column": "event_timestamp"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "219868e6-460a-4b79-9270-579a7da33899",
+      "kwargs": {
+        "column": "payer_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "4ef23631-dd9f-4e71-8d0c-fdd2059fab0b",
+      "kwargs": {
+        "column": "currency"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "58f12d75-40a5-41c8-9ffa-7493a754c674",
+      "kwargs": {
+        "column": "amount",
+        "min_value": 0.01
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "049f644e-3360-4d81-8761-7fea150e6aa8",
+      "kwargs": {
+        "column": "transaction_id",
+        "type_": "int64"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_of_type"
+    },
+    {
+      "id": "1e5ca6f2-7be2-4152-bc86-f1f4127201c7",
+      "kwargs": {
+        "column": "transaction_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    }
+  ],
+  "id": "70207040-2ea0-47c7-92a7-8b5d30f60b9d",
+  "meta": {
+    "great_expectations_version": "1.11.0"
+  },
+  "name": "transaction_schema",
+  "notes": null
+}

@@ -1,0 +1,16 @@
+{
+  "actions": [],
+  "id": "cead4f07-3c67-47cb-9619-f80a55263acf",
+  "name": "transaction_checkpoint",
+  "result_format": "SUMMARY",
+  "validation_definitions": [
+    {
+      "id": "1ef37219-42b1-4d21-a94d-84216d089416",
+      "name": "val_schema"
+    },
+    {
+      "id": "c8c4ddb0-0299-4012-8021-3dbfe0029de4",
+      "name": "val_logic"
+    }
+  ]
+}

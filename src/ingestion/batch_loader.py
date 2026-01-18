@@ -2,6 +2,7 @@ import duckdb
 import pandas as pd
 from typing import List
 from src.ingestion.schema import Transaction
+from src.validation.run_validation import validate_batch
 
 def load_enriched_data(duckdb_path: str) -> pd.DataFrame:
     """
@@ -17,8 +18,13 @@ def load_enriched_data(duckdb_path: str) -> pd.DataFrame:
     
     df = con.execute(query).df()
     con.close()
-    
     print(f"Loaded {len(df)} rows from DuckDB.")
+    # --- ADD THE GATEKEEPER HERE ---
+    print("🔒 Running Data Validation Gatekeeper...")
+    if not validate_batch(df):
+        raise ValueError("⛔ CRITICAL: Batch Loader stopped because data failed validation rules.")
+    
+    print("✅ Gatekeeper Passed. Proceeding.")
     return df
 
 def validate_and_convert(df: pd.DataFrame) -> List[Transaction]:
