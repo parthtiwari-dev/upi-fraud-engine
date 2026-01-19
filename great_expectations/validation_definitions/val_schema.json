@@ -1,11 +1,11 @@
 {
   "data": {
     "asset": {
-      "id": "e2bcf0ac-c8d0-488b-b7a6-95af6574e4e7",
+      "id": "5c2cd557-0fbc-4576-9215-e837f8589f79",
       "name": "transactions_asset"
     },
     "batch_definition": {
-      "id": "c6350a41-e791-488b-97b3-d456c4a69418",
+      "id": "a2ba0d79-97f9-489f-914c-20d587f9597d",
       "name": "batch_def"
     },
     "datasource": {
@@ -16,7 +16,7 @@
   "id": "1ef37219-42b1-4d21-a94d-84216d089416",
   "name": "val_schema",
   "suite": {
-    "id": "70207040-2ea0-47c7-92a7-8b5d30f60b9d",
+    "id": "41d8d6c0-ce8f-44b8-aaae-a3ec75e3dbc3",
     "name": "transaction_schema"
   }
 }

@@ -86,9 +86,12 @@ def validate_batch(df: pd.DataFrame) -> bool:
 def validate_streaming_event(event: dict) -> bool:
     """Lightweight streaming gate for the simulator."""
     return (
-        event.get("amount", 0) > 0 and
-        event.get("currency") == "INR"
+    event.get("amount", 0) > 0 and
+    event.get("currency") == "INR" and
+    event.get("label_available_timestamp") is None or
+    event["label_available_timestamp"] > event["event_timestamp"]
     )
+
 
 
 def main() -> None:

@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "37007af8-bb02-43c8-8a5d-f2c6f977b29e",
+      "id": "082bea5d-6930-4a3b-a50d-6c0473976238",
       "kwargs": {
         "column": "transaction_id"
       },
@@ -10,7 +10,7 @@
       "type": "expect_column_to_exist"
     },
     {
-      "id": "bcc773d6-4c92-4c3a-88d7-8551433d5e89",
+      "id": "701e1b92-ea25-4c1f-acaf-fc4471f2fa06",
       "kwargs": {
         "column": "amount"
       },
@@ -19,7 +19,7 @@
       "type": "expect_column_to_exist"
     },
     {
-      "id": "9b2fad6c-21ee-40f2-8785-306f84210d86",
+      "id": "314e6c4f-8bbc-4e2e-8258-3fb1eb6a836f",
       "kwargs": {
         "column": "event_timestamp"
       },
@@ -28,7 +28,7 @@
       "type": "expect_column_to_exist"
     },
     {
-      "id": "219868e6-460a-4b79-9270-579a7da33899",
+      "id": "d379d42c-a1f0-4352-9971-f643c583b30d",
       "kwargs": {
         "column": "payer_id"
       },
@@ -37,7 +37,7 @@
       "type": "expect_column_to_exist"
     },
     {
-      "id": "4ef23631-dd9f-4e71-8d0c-fdd2059fab0b",
+      "id": "79fc00ec-3ac0-433b-855f-5b89eb2c153c",
       "kwargs": {
         "column": "currency"
       },
@@ -46,7 +46,7 @@
       "type": "expect_column_to_exist"
     },
     {
-      "id": "58f12d75-40a5-41c8-9ffa-7493a754c674",
+      "id": "769b2900-0530-43d4-9895-3a7ca00b0a40",
       "kwargs": {
         "column": "amount",
         "min_value": 0.01
@@ -56,7 +56,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "049f644e-3360-4d81-8761-7fea150e6aa8",
+      "id": "4d9a4964-8dca-4f33-948c-804bb35be915",
       "kwargs": {
         "column": "transaction_id",
         "type_": "int64"
@@ -66,16 +66,35 @@
       "type": "expect_column_values_to_be_of_type"
     },
     {
-      "id": "1e5ca6f2-7be2-4152-bc86-f1f4127201c7",
+      "id": "c3412418-438e-4cc8-93db-9267f43ecea9",
       "kwargs": {
         "column": "transaction_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "12b11f5a-7873-4725-9dff-d5e58759fef0",
+      "kwargs": {
+        "column_A": "label_available_timestamp",
+        "column_B": "event_timestamp"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_pair_values_a_to_be_greater_than_b"
+    },
+    {
+      "id": "3c2e3c0b-bf52-44ba-80b0-bf07564fda72",
+      "kwargs": {
+        "column": "label_available_timestamp"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
     }
   ],
-  "id": "70207040-2ea0-47c7-92a7-8b5d30f60b9d",
+  "id": "41d8d6c0-ce8f-44b8-aaae-a3ec75e3dbc3",
   "meta": {
     "great_expectations_version": "1.11.0"
   },

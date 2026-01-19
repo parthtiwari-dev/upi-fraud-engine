@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "d44d87cd-158e-4d1d-913d-7f165d89efd7",
+      "id": "ed91895a-34ff-4425-8ae7-5f36c3ad5cf6",
       "kwargs": {
         "column": "amount",
         "max_value": 1000000.0,
@@ -12,7 +12,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "df3e90c0-eb09-4442-99c6-31c7e5bb15cb",
+      "id": "66f528c7-9bcb-4533-9a61-b7d64b9949f9",
       "kwargs": {
         "column": "currency",
         "value_set": [
@@ -24,7 +24,7 @@
       "type": "expect_column_values_to_be_in_set"
     },
     {
-      "id": "a98022f1-f8ca-4f42-8e07-1fb202d1e75c",
+      "id": "3c6730fd-a775-4f30-a463-ce135324179d",
       "kwargs": {
         "column": "payer_id"
       },
@@ -33,7 +33,7 @@
       "type": "expect_column_values_to_not_be_null"
     }
   ],
-  "id": "bbbe81cf-4147-41ed-b4a3-03d3816125d1",
+  "id": "452075a7-aaf9-4aff-9c96-269c3ca80a76",
   "meta": {
     "great_expectations_version": "1.11.0"
   },
