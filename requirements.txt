@@ -5,3 +5,5 @@ duckdb
 pydantic
 great_expectations
 pyarrow
+scikit-learn
+xgboost

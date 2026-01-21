@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-01-22T01:39:10.897159",
+  "model_type": "XGBoost (Stage 2 Only - Production Baseline)",
+  "config": {},
+  "data": {
+    "total_rows": 590546,
+    "total_columns": 491,
+    "fraud_rate": 0.03601920934186329
+  },
+  "split": {
+    "train_rows": 498108,
+    "test_rows": 85429,
+    "train_fraud_rate": 0.03606446794671035,
+    "test_fraud_rate": 0.03599480270165869
+  },
+  "features": {
+    "num_features": 482,
+    "has_anomaly_score": false
+  },
+  "training": {
+    "best_iteration": 172
+  },
+  "performance": {
+    "roc_auc": 0.8918385964538179,
+    "pr_auc": 0.5042251155905056
+  },
+  "business_metrics": {
+    "precision_at_0.5pct_budget": 0.9205607476635514,
+    "recall_at_0.5pct_budget": 0.12813008130081302,
+    "threshold_0.5pct": 0.9940166473388672
+  },
+  "artifacts": {
+    "model_path": "models\\production\\fraud_detector.json",
+    "feature_importance": "models\\production\\feature_importance.csv"
+  }
+}

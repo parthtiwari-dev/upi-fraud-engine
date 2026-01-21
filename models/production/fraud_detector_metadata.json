@@ -1,0 +1,15 @@
+{
+  "model_type": "XGBoost (Stage 2 Only - Production)",
+  "roc_auc": 0.8918385964538179,
+  "pr_auc": 0.5042251155905056,
+  "precision_at_0.5pct": 0.9205607476635514,
+  "recall_at_0.5pct": 0.12813008130081302,
+  "num_features": 482,
+  "best_iteration": 172,
+  "training_date": "2026-01-22T01:41:52.254322",
+  "ab_test_winner": "Baseline (Stage 2 only) outperformed two-stage",
+  "num_categorical": 58,
+  "model_path": "models\\production\\fraud_detector.json",
+  "feature_path": "models\\production\\fraud_detector_features.txt",
+  "encoder_path": "models\\production\\fraud_detector_encoders.pkl"
+}

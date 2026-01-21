@@ -1,0 +1,11 @@
+{
+  "roc_auc": 0.8952723074745137,
+  "pr_auc": 0.5166461168788287,
+  "best_iteration": 162,
+  "anomaly_score_rank": 201,
+  "num_features": 483,
+  "num_categorical": 58,
+  "model_path": "models\\phase5_two_stage\\stage2_xgboost.json",
+  "feature_path": "models\\phase5_two_stage\\stage2_xgboost_features.txt",
+  "encoder_path": "models\\phase5_two_stage\\stage2_xgboost_encoders.pkl"
+}

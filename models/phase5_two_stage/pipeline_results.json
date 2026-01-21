@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-01-22T01:30:29.020574",
+  "config": {},
+  "stage1": {
+    "contamination": 0.03601920934186329,
+    "n_estimators": 100,
+    "anomaly_score_rank": 201,
+    "anomaly_score_importance": 119.6111068725586
+  },
+  "stage2": {
+    "num_features": 483,
+    "has_anomaly_score": true,
+    "best_iteration": 162
+  },
+  "evaluation": {
+    "roc_auc": 0.8952723074745137,
+    "pr_auc": 0.5166461168788287,
+    "threshold_metrics": [
+      {
+        "target_precision": 0.5,
+        "actual_precision": 1.0,
+        "recall": 0.0,
+        "threshold": 1.0
+      },
+      {
+        "target_precision": 0.7,
+        "actual_precision": 1.0,
+        "recall": 0.0,
+        "threshold": 1.0
+      },
+      {
+        "target_precision": 0.9,
+        "actual_precision": 1.0,
+        "recall": 0.0,
+        "threshold": 1.0
+      },
+      {
+        "target_precision": 0.95,
+        "actual_precision": 1.0,
+        "recall": 0.0,
+        "threshold": 1.0
+      }
+    ],
+    "confusion_matrix": {
+      "tn": 73810,
+      "fp": 8544,
+      "fn": 871,
+      "tp": 2204
+    }
+  },
+  "artifacts": {
+    "feature_importance": "models\\phase5_two_stage\\feature_importance.csv",
+    "stage1_model": "models\\phase5_two_stage\\stage1_isolation_forest.pkl",
+    "stage1_scaler": "models\\phase5_two_stage\\stage1_scaler.pkl",
+    "stage2_model": "models\\phase5_two_stage\\stage2_xgboost.json"
+  },
+  "data": {
+    "total_rows": 590546,
+    "total_columns": 491,
+    "fraud_rate": 0.03601920934186329
+  },
+  "split": {
+    "train_rows": 498108,
+    "test_rows": 85429,
+    "train_fraud_rate": 0.03606446794671035,
+    "test_fraud_rate": 0.03599480270165869
+  }
+}
