@@ -4,3 +4,4 @@ seaborn
 duckdb
 pydantic
 great_expectations
+pyarrow
