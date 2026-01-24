@@ -756,6 +756,16 @@ report = generate_evaluation_report(y_test, y_probs)
 
 ---
 
+## Known Limitations (Portfolio Scope)
+
+### Categorical Encoding
+- **Current:** Label encoders fit separately on train/test sets
+- **Production Fix:** Fit encoder on train, transform test (1-line change)
+- **Impact:** Minimal - label encoding uses arbitrary mappings, not target statistics
+- **Why acceptable:** Focus on demonstrating temporal correctness, feature engineering, 
+  and business metric evaluation (alert budget constraints)
+
+
 ### 5. Two-Stage is Better When Stages Solve Different Problems
 
 **Stage 1 (Unsupervised):** Catches novel/anomalous patterns

@@ -7,3 +7,7 @@ great_expectations
 pyarrow
 scikit-learn
 xgboost
+plotly 
+kaleido  
+pytest 
+pytest-mock
