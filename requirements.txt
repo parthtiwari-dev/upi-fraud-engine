@@ -11,3 +11,6 @@ plotly
 kaleido  
 pytest 
 pytest-mock
+fastapi
+uvicorn
+pydantic-settings

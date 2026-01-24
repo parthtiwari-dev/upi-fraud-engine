@@ -152,24 +152,20 @@ class FraudPredictor:
             # This updates the history for future feature computation
             self.feature_store.ingest(txn_dict)
             
-            # Step 9: Determine alert and risk tier
-            threshold = self.metadata.get('threshold_0.5pct', 0.994)  # From training
-            should_alert = fraud_prob >= threshold
+            # Step 9: Return probability and risk tier ONLY
             risk_tier = self._get_risk_tier(fraud_prob)
-            
             latency_ms = (time.time() - start_time) * 1000
             
             return {
-                'transaction_id': txn_dict.get('transaction_id', 'unknown'),
-                'fraud_probability': float(fraud_prob),
-                'should_alert': should_alert,
-                'risk_tier': risk_tier,
-                'threshold_used': float(threshold),
-                'latency_ms': latency_ms
+            'transaction_id': txn_dict.get('transaction_id', 'unknown'),
+            'fraud_probability': float(fraud_prob),
+            'should_alert': None,  # ← Decided by service.py
+            'risk_tier': risk_tier,
+            'threshold_used': None,  # ← Decided by service.py
+            'latency_ms': latency_ms
             }
             
         except Exception as e:
-            # Log error and re-raise with context
             raise ValueError(
                 f"Prediction failed for transaction {transaction.get('transaction_id', 'unknown')}: {str(e)}"
             ) from e

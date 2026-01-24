@@ -1,0 +1,12 @@
+data/
+notebooks/
+great_expectations/
+evaluation/
+docs/
+__pycache__/
+*.duckdb
+*.csv
+*.parquet
+venv/
+.env
+folder_tree.txt

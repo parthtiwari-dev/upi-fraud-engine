@@ -3,8 +3,7 @@
 /data/raw/
 /data/processed/full_upi_dataset.csv
 /data/processed/
-*.duckdb
-
+/data
 
 
 # Byte-compiled / optimized / DLL files

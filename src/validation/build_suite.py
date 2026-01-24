@@ -31,7 +31,7 @@ def build_schema_suite(context):
     
     # Type & Uniqueness
     suite.add_expectation(gx.expectations.ExpectColumnValuesToBeBetween(column="amount", min_value=0.01))
-    suite.add_expectation(gxe.ExpectColumnValuesToBeOfType(column="transaction_id", type_="int64"))
+    suite.add_expectation(gxe.ExpectColumnValuesToBeOfType(column="transaction_id", type_="str"))
     suite.add_expectation(gxe.ExpectColumnValuesToBeUnique(column="transaction_id"))
     suite.add_expectation(gxe.ExpectColumnPairValuesAToBeGreaterThanB(
         column_A="label_available_timestamp",
