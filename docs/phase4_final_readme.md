@@ -1367,7 +1367,13 @@ Based on the validation results, your model should see:
 ✅ **Validated with 6 comprehensive tests**
 
 ---
+## ⚠️ Known Issues & Limitations
 
+### Phase 4
+- **Limitation**: Graph features use ROWS (1000 txns) instead of time windows (7 days)
+  - **Impact**: Feature name `_7d` is misleading
+  - **Mitigation**: Documented in code comments + README justification
+  
 ## What This Phase Teaches
 
 ### For Interviews:

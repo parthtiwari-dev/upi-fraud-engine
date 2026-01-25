@@ -18,10 +18,13 @@
 - Combined: 1,097,231 rows
 
 ### ✅ Question 2: What is the fraud rate?
-**Answer:** 1.88% fraud rate
-- Legitimate (`is_fraud = 0.0`): 569,877 rows (51.93%)  
-- Fraudulent (`is_fraud = 1.0`): 20,663 rows (1.88%)  
-- Unlabeled (`is_fraud = NaN`): 506,691 rows (46.19%)
+**Answer:** 
+- **Train Set** (labeled): 3.6% fraud rate (21,271 frauds / 590,540 rows)
+- **Test Set** (unlabeled): Unknown (labels not available)
+- **Combined Dataset**: 1.88% (includes unlabeled test data with is_fraud=NaN)
+
+Note: The 1.88% reflects ALL data (train+test), but test set has is_fraud=NaN.
+The actual fraud rate in LABELED data is 3.6%, which is used for model training.
 
 ### ✅ Question 3: Show me a device ring
 **Answer:** Device Ring Successfully Detected

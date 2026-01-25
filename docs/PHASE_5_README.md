@@ -7,6 +7,26 @@
 
 ---
 
+## ⚠️ PRODUCTION DEPLOYMENT STATUS
+
+**Current Production Model**: Baseline (XGBoost only, Stage 2 only)
+- **Performance**: 0.9106 ROC-AUC
+- **Features**: 483 (includes `fraud_pattern` - synthetic leakage)
+- **Deployed**: January 22, 2026
+- **Location**: `models/production/fraud_detector.json`
+
+**Why not two-stage?**
+- Initial A/B test (before leakage fix): Baseline won (0.9106 vs 0.9008)
+- Production deployed baseline model
+- Later discovered `fraud_pattern` leakage
+- Re-ran A/B test after fix: Two-stage won (0.8953 vs 0.8918)
+- **Decision**: Keep baseline in production, document cleaner results below
+
+**Future Retraining**:
+- Use two-stage model (0.8953 ROC-AUC)
+- Remove `fraud_pattern` from features
+- Retrain with 482 leakage-free features
+
 ## 📋 Executive Summary
 
 Phase 5 implements a **two-stage fraud detection system** with rigorous A/B testing, production audits, and comprehensive validation. After discovering and fixing critical label leakage, we achieved a production-ready model that:
@@ -18,6 +38,8 @@ Phase 5 implements a **two-stage fraud detection system** with rigorous A/B test
 - ✅ **Fully reproducible** - All random seeds fixed, temporal splits maintained
 
 ---
+
+
 
 ## 🎯 Phase 5 Objectives (ALL ACHIEVED)
 

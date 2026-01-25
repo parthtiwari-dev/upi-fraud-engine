@@ -14,3 +14,4 @@ pytest-mock
 fastapi
 uvicorn
 pydantic-settings
+streamlit

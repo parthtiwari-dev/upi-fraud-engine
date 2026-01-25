@@ -1210,6 +1210,13 @@ Before deploying to production:
 
 ---
 
+## ⚠️ Known Issues & Limitations
+
+### Phase 7
+- **Limitation**: XGBoost feature validation disabled (`validate_features=False`)
+  - **Impact**: Could cause silent bugs if feature order changes
+  - **Mitigation**: Pydantic schema + Great Expectations prevent mismatches
+
 ## 📞 What's Next?
 
 ### **Phase 8 (Backtesting & Ranking):**

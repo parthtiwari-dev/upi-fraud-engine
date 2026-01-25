@@ -548,6 +548,17 @@ Stable Recall (~12%)
 
 ---
 
+## 📊 Sample Visualizations
+
+### Precision/Recall Over Time
+![Precision Recall Trend](../evaluation/visualizations/precision_recall_trend.png)
+
+### Alert Budget Compliance
+![Budget Compliance](../evaluation/visualizations/alert_budget_compliance.png)
+
+### Financial Impact
+![Financial Impact](../evaluation/visualizations/financial_impact.png)
+
 ## Workflow & Data Flow
 
 ### Complete Evaluation Pipeline
