@@ -10,6 +10,12 @@ st.set_page_config(page_title="UPI Fraud Detection", page_icon="🚨", layout="w
 
 st.title("🚨 UPI Fraud Detection System")
 st.markdown("Real-time fraud scoring with <500ms latency")
+st.info(
+    "This fraud detection system mirrors real fintech architectures: "
+    "alerts are triggered only for the top-risk fraction of transactions. "
+    "Low demo volume may result in fewer alerts by design."
+)
+
 
 # Sidebar - Transaction Input
 st.sidebar.header("📝 Transaction Details")
