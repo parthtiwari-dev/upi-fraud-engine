@@ -166,8 +166,9 @@ class FraudScoringService:
         self.metrics = ServiceMetrics()
 
         self._recent_scores = deque(maxlen=5000)   # rolling window
-        self._min_scores = 300                      # warm-up
-        self._fallback_threshold = 0.5
+        self._fallback_threshold = 0.95  # Match backtesting behavior
+        self._min_scores = 50  # Faster warm-up for demo
+
         
         logger.info("✅ FraudScoringService ready")
         logger.info(f"   Alert budget: {alert_budget_pct*100}% per day")

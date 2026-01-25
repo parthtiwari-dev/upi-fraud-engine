@@ -244,7 +244,9 @@
 │   - Cumulative Recall: 12.81% (budget-limited)            │
 │   - ROC-AUC: 0.8953                                         │
 │   - False Alert Rate: 7.94%                                 │
-│   - Budget Adherence: 100% ✓                               │
+│   - Budget adherence: enforced per service                  |
+|      instance (production-grade design,                     |
+|     distributed state optional)                            │
 │                                                              │
 │ Business Impact:                                            │
 │   - Daily fraud prevented: ₹5.92L (avg)                    │
