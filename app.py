@@ -46,7 +46,13 @@ if st.sidebar.button("🔍 Score Transaction", use_container_width=True):
             if result['should_alert']:
                 st.error("🚨 **HIGH RISK**: This transaction should be flagged for review!")
             else:
-                st.success("✅ **LOW RISK**: Transaction appears legitimate")
+                risk_tier = result['risk_tier'].upper()
+                if risk_tier == "LOW":
+                    st.success(f"✅ {risk_tier} RISK: Transaction appears legitimate")
+                elif risk_tier == "MEDIUM":
+                    st.warning(f"⚠️ {risk_tier} RISK: Monitor this transaction")
+                else:  # HIGH
+                    st.error(f"🚨 {risk_tier} RISK: Potential fraud detected!")
             
             # Fraud Gauge
             fig = go.Figure(go.Indicator(
