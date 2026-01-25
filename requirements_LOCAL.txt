@@ -1,0 +1,13 @@
+numpy==1.26.4
+pandas==2.2.3
+seaborn==0.13.2
+duckdb==1.1.3
+pydantic==2.9.2
+great-expectations==1.2.3
+pyarrow==18.1.0
+scikit-learn==1.5.2
+xgboost==2.1.1
+plotly==5.24.1
+altair==4.2.2
+pytest==8.3.3
+pytest-mock==3.14.0
