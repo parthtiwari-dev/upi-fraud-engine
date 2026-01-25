@@ -7,7 +7,7 @@
 
 ---
 
-## ⚠️ PRODUCTION DEPLOYMENT STATUS
+## ⚠️ PRODUCTION DEPLOYMENT STATUS (Update)
 
 **Current Production Model**: Baseline (XGBoost only, Stage 2 only)
 - **Performance**: 0.9106 ROC-AUC
@@ -26,6 +26,9 @@
 - Use two-stage model (0.8953 ROC-AUC)
 - Remove `fraud_pattern` from features
 - Retrain with 482 leakage-free features
+
+### Production inference uses a single XGBoost model, while the two-stage architecture is implemented and validated as an experimental improvement. 
+### I implemented a two-stage fraud detection architecture (Isolation Forest + XGBoost) and benchmarked it against a single-stage baseline. While the two-stage model showed marginal performance gains after leakage fixes, we retained the single-stage XGBoost model in production to balance performance, latency, and system complexity.
 
 ## 📋 Executive Summary
 

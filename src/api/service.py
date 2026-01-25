@@ -1,3 +1,4 @@
+
 """
 Fraud Scoring Service for FastAPI Integration.
 
@@ -163,6 +164,10 @@ class FraudScoringService:
         
         # Metrics tracking
         self.metrics = ServiceMetrics()
+
+        self._recent_scores = deque(maxlen=5000)   # rolling window
+        self._min_scores = 300                      # warm-up
+        self._fallback_threshold = 0.5
         
         logger.info("✅ FraudScoringService ready")
         logger.info(f"   Alert budget: {alert_budget_pct*100}% per day")
@@ -192,29 +197,32 @@ class FraudScoringService:
             # Use existing FraudPredictor (returns probability only)
             result = self.predictor.predict_single(txn_dict)
             fraud_prob = result['fraud_probability']
-            
+            self._recent_scores.append(fraud_prob)
+
             # ✅ NEW: Decide alert based on probability + budget
             # Define threshold (you control this!)
-            alert_threshold = 0.5  # Alert on fraud_prob >= 50%
+            alert_threshold = self._dynamic_threshold()  # Budget-aware dynamic threshold
             
             # Calculate daily budget
             daily_budget = max(1, int(self.metrics.daily_transaction_count * self.alert_budget_pct))
             budget_exceeded = False
             
             # Alert decision logic
-            if fraud_prob >= alert_threshold:  # Suspicious transaction
-                if self.metrics.daily_alert_count < daily_budget:  # Budget available
-                    should_alert = True
-                else:  # Budget exhausted
+            if fraud_prob >= alert_threshold:
+                should_alert = True
+                
+                # safety guard (not primary logic)
+                if self.metrics.daily_alert_count >= daily_budget:
                     should_alert = False
                     budget_exceeded = True
+
                     logger.warning(
                         f"⚠️  Alert budget exhausted: {self.metrics.daily_alert_count}/{daily_budget}. "
                         f"Suppressing alert for {txn.transaction_id}"
                     )
             else:  # Not suspicious
                 should_alert = False
-            
+
             # Calculate remaining budget
             alert_budget_remaining = max(0, daily_budget - self.metrics.daily_alert_count)
             
@@ -298,3 +306,17 @@ class FraudScoringService:
         logger.info(f"Final stats: {self.metrics.total_requests} requests, "
                    f"{self.metrics.total_alerts} alerts, "
                    f"{self.metrics.error_count} errors")
+        
+    def _dynamic_threshold(self) -> float:
+        # Warm-up phase: behave like old system
+        if len(self._recent_scores) < self._min_scores:
+            return self._fallback_threshold
+        
+        scores = np.array(self._recent_scores, dtype=float)
+        
+        # Budget-based threshold (top X%)
+        k = int(np.ceil(self.alert_budget_pct * len(scores)))
+        k = max(1, min(k, len(scores)))
+        
+        sorted_scores = np.sort(scores)[::-1]
+        return float(sorted_scores[k - 1])

@@ -32,13 +32,13 @@ try:
     con = duckdb.connect(DUCKDB_PATH)
     
     # Load first 100 transactions (sorted by time)
-    print("   Loading first 100 transactions (sorted by event_timestamp)...")
+    print("   Loading first 1200 transactions (sorted by event_timestamp)...")
     query_normal = """
     SELECT *
     FROM transactions
     WHERE is_fraud = 0.0
     ORDER BY event_timestamp
-    LIMIT 100
+    LIMIT 1200
     """
     df_normal = con.execute(query_normal).df()
     print(f"   ✅ Loaded {len(df_normal)} normal transactions")
@@ -50,7 +50,7 @@ try:
     FROM transactions
     WHERE is_fraud = 1.0
     ORDER BY event_timestamp
-    LIMIT 30
+    LIMIT 50
     """
     df_fraud = con.execute(query_fraud).df()
     print(f"   ✅ Loaded {len(df_fraud)} fraudulent transactions")
@@ -146,7 +146,8 @@ for idx, row in df_all.iterrows():
                 "risk_tier": result["risk_tier"],
                 "latency_ms": result["latency_ms"],
                 "amount": txn["amount"],
-                "event_timestamp": txn["event_timestamp"]
+                "event_timestamp": txn["event_timestamp"],
+                "threshold_used": result["threshold_used"]
             })
             
             # Print progress every 10 transactions
@@ -195,6 +196,11 @@ print()
 
 df_results = pd.DataFrame(results)
 
+print("\nThresholds_used:")
+print(df_results["threshold_used"].to_list())
+
+
+
 # Save results
 df_results.to_csv(OUTPUT_FILE, index=False)
 print(f"💾 Results saved to: {OUTPUT_FILE}")
@@ -241,8 +247,8 @@ print(f"  Alerted:               {df_fraud_results['should_alert'].sum()} ({df_f
 print()
 
 # Calculate metrics at threshold 0.5 (for analysis)
-threshold = 0.5
-df_valid["predicted_fraud"] = df_valid["fraud_probability"] >= threshold
+df_valid["predicted_fraud"] = df_valid["should_alert"]
+
 
 tp = len(df_valid[(df_valid["true_label"] == 1.0) & (df_valid["predicted_fraud"] == True)])
 tn = len(df_valid[(df_valid["true_label"] == 0.0) & (df_valid["predicted_fraud"] == False)])
@@ -253,11 +259,35 @@ precision = tp / (tp + fp) if (tp + fp) > 0 else 0
 recall = tp / (tp + fn) if (tp + fn) > 0 else 0
 f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
 
-print(f"At Threshold {threshold}:")
+# Calculate metrics at threshold 0.5 (for analysis)
+df_valid["predicted_fraud"] = df_valid["should_alert"]
+
+tp = len(df_valid[(df_valid["true_label"] == 1.0) & (df_valid["predicted_fraud"] == True)])
+tn = len(df_valid[(df_valid["true_label"] == 0.0) & (df_valid["predicted_fraud"] == False)])
+fp = len(df_valid[(df_valid["true_label"] == 0.0) & (df_valid["predicted_fraud"] == True)])
+fn = len(df_valid[(df_valid["true_label"] == 1.0) & (df_valid["predicted_fraud"] == False)])
+
+precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+
+# Get threshold stats
+avg_threshold = df_valid["threshold_used"].mean()
+min_threshold = df_valid["threshold_used"].min()
+max_threshold = df_valid["threshold_used"].max()
+
+print(f"🎯 CLASSIFICATION METRICS")
+print("─" * 50)
+print(f"Dynamic Threshold Range: {min_threshold:.4f} - {max_threshold:.4f}")
+print(f"Average Threshold Used:  {avg_threshold:.4f}")
+print()
+print(f"Confusion Matrix:")
 print(f"  True Positives:  {tp}")
 print(f"  True Negatives:  {tn}")
 print(f"  False Positives: {fp}")
 print(f"  False Negatives: {fn}")
+print()
+print(f"Performance:")
 print(f"  Precision:       {precision:.4f}")
 print(f"  Recall:          {recall:.4f}")
 print(f"  F1 Score:        {f1:.4f}")
