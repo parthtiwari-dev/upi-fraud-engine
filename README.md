@@ -98,6 +98,23 @@
 | **Annual ROI** | 7,400x | ₹21.6Cr saved on ₹30L cost |
 
 ---
+## Production Considerations
+
+### Online Feature Store Cold Start
+
+The current `OnlineFeatureStore` starts empty on container restart:
+
+| Scenario | Feature Store State | ROC-AUC |
+|----------|---------------------|---------|
+| Training (Phase 4) | Full 6-month history | **0.8953** ✅ |
+| API (cold start) | Empty | **0.5969** ❌ |
+| Production (warmed) | Last 30 days | **~0.89** ✅ |
+
+**Fix:** Warm-up with recent history on startup (30s, PostgreSQL → Redis → ingest).
+
+Demo uses cold-start to show the real challenge.
+
+---
 
 ## 🚀 Quick Start
 
