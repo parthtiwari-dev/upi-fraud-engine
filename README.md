@@ -340,25 +340,6 @@ Latency:  <500ms (typical)
 
 ---
 
-## 🎯 Interview Talking Points
-
-### Problem Statement
-> *"Fraud detection in UPI payments requires real-time decisions with high precision (false alerts waste resources) and must handle distribution shifts. Traditional static thresholds break when fraud patterns change."*
-
-### Architecture
-> *"I built a two-stage system: Stage 1 (Isolation Forest) detects velocity anomalies, Stage 2 (XGBoost with 482 features) classifies fraud context. Together they achieve 0.8953 ROC-AUC, +0.35% vs single-stage baseline."*
-
-### Key Technical Achievement
-> *"I discovered label leakage in a synthetic column (`fraud_pattern`), which inflated the baseline model's ROC-AUC to 0.9106. After fixing it, I re-ran A/B tests and confirmed two-stage was still the winner. This shows the importance of systematic feature auditing."*
-
-### Production Decision
-> *"While two-stage wins (+0.35%), I deployed Stage 2 (XGBoost) alone because: (1) marginal gains don't justify 2x latency, (2) single model is easier to monitor, (3) same 0.8953 performance without complexity."*
-
-### Temporal Correctness
-> *"I enforced 48-hour buffer between train (Jan-Jun) and test (Jul-Aug) and computed features point-in-time (only past data). This prevents the 10-40% performance drop you see when models hit production."*
-
----
-
 ## 🧪 Testing & Validation
 
 | Test Category | Count | Status |
