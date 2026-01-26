@@ -25,34 +25,34 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Real-Time Scoring Path                    │
+│                    Real-Time Scoring Path                   │
 ├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  UPI Transaction → Feature Extraction → ML Model → Alert     │
-│                        (482 features)    (XGBoost)  Decision │
-│                                                               │
+│                                                             │
+│  UPI Transaction → Feature Extraction → ML Model → Alert    │
+│                        (482 features)    (XGBoost)  Decision│
+│                                                             │
 │  Latency: ~256ms (p50) | Uptime: 99.9%                      │
-│                                                               │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
-│                  Training & Validation Path                  │
+│                  Training & Validation Path                 │
 ├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  1.1M Transactions                                           │
-│        ↓                                                      │
-│  Temporal Split (48h buffer)                                 │
+│                                                             │
+│  1.1M Transactions                                          │
+│        ↓                                                    │
+│  Temporal Split (48h buffer)                                │
 │        ├─ Train: 900K transactions (Jan-Jun)                │
 │        └─ Test: 200K transactions (Jul-Aug)                 │
-│        ↓                                                      │
-│  Two-Stage Evaluation:                                       │
+│        ↓                                                    │
+│  Two-Stage Evaluation:                                      │
 │        ├─ Stage 1: Isolation Forest (anomaly detection)     │
 │        └─ Stage 2: XGBoost (classification)                 │
-│        ↓                                                      │
+│        ↓                                                    │
 │  Backtesting: Day-by-day replay with alert budget           │
-│        ↓                                                      │
+│        ↓                                                    │
 │  Production Deployment: XGBoost only (simplified)           │
-│                                                               │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 

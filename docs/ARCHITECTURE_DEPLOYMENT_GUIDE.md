@@ -21,73 +21,73 @@
 ┌────────────────────────────────────────────────────────────────────────┐
 │                       PRODUCTION DEPLOYMENT                            │
 ├────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
+│                                                                        │
 │   ┌─────────────────────────────────────────────────────────────────┐  │
 │   │                    END USERS (Browser/Mobile)                   │  │
-│   └─────────────┬──────────────────────────────────────────────────┘  │
+│   └─────────────┬──────────────────────────────────────────────────-┘  │
 │                 │ HTTPS                                                │
-│   ┌─────────────▼──────────────────────────────────────────────────┐  │
-│   │           STREAMLIT CLOUD (Frontend Tier)                      │  │
-│   │     upi-fraud-engine.streamlit.app                             │  │
-│   │   ┌────────────────────────────────────────────────────┐       │  │
-│   │   │ • Transaction input form (sidebar)               │       │  │
-│   │   │ • Fraud probability gauge chart                  │       │  │
-│   │   │ • Risk tier badge (LOW/MEDIUM/HIGH)              │       │  │
-│   │   │ • Latency & performance metrics                  │       │  │
-│   │   │ • API health status                              │       │  │
-│   │   └────────────────────────────────────────────────────┘       │  │
-│   └─────────────┬──────────────────────────────────────────────────┘  │
-│                 │ HTTP POST /score (JSON)                            │
-│   ┌─────────────▼──────────────────────────────────────────────────┐  │
-│   │          RENDER (Backend Tier - Docker Container)              │  │
-│   │     upi-fraud-engine.onrender.com                              │  │
-│   │   ┌────────────────────────────────────────────────────┐       │  │
-│   │   │  FastAPI Server (uvicorn)                          │       │  │
-│   │   │  ├─ POST /score       [Real-time fraud scoring]   │       │  │
-│   │   │  ├─ GET /health       [System health check]       │       │  │
-│   │   │  ├─ GET /metrics      [Performance metrics]       │       │  │
-│   │   │  └─ GET /docs         [Swagger/OpenAPI]           │       │  │
-│   │   └────────────────────────────────────────────────────┘       │  │
-│   │                           │                                     │  │
-│   │           ┌───────────────┼───────────────┐                    │  │
-│   │           ▼               ▼               ▼                    │  │
-│   │   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐           │  │
-│   │   │  Service     │ │  Metrics &   │ │  Inference   │           │  │
-│   │   │  Layer       │ │  Monitoring  │ │  Layer       │           │  │
-│   │   │service.py    │ │metrics.py    │ │single_predict│           │  │
-│   │   └──────────────┘ └──────────────┘ └──────────────┘           │  │
-│   │                           │                                     │  │
-│   │   ┌────────────────────────┴────────────────────────┐           │  │
-│   │   ▼                                                 ▼           │  │
-│   │ ┌──────────────────┐                    ┌──────────────────┐   │  │
-│   │ │ OnlineFeature    │                    │   ML Model       │   │  │
-│   │ │ Store            │                    │   Layer          │   │  │
-│   │ │ onlinebuilder.py │                    │                  │   │  │
-│   │ │                  │                    │ Stage 1:         │   │  │
-│   │ │ • Computes 482   │                    │ Isolation Forest │   │  │
-│   │ │   features       │                    │ (anomaly scores) │   │  │
-│   │ │ • Velocity       │                    │                  │   │  │
-│   │ │   aggregations   │                    │ Stage 2:         │   │  │
-│   │ │ • Behavioral     │                    │ XGBoost          │   │  │
-│   │ │   signals        │                    │ (0.8953 ROC-AUC) │   │  │
-│   │ │ • Historical     │                    │                  │   │  │
-│   │ │   fraud counts   │                    │ 482 features     │   │  │
-│   │ │ • Device        │                    │ 58 encoders      │   │  │
-│   │ │   fingerprints   │                    │                  │   │  │
-│   │ └──────────────────┘                    └──────────────────┘   │  │
-│   └─────────────────────────────────────────────────────────────────┘  │
+│   ┌─────────────▼──────────────────────────────────────────────────┐   │
+│   │           STREAMLIT CLOUD (Frontend Tier)                      │   │
+│   │     upi-fraud-engine.streamlit.app                             │   │
+│   │   ┌────────────────────────────────────────────────────┐       │   │
+│   │   │ • Transaction input form (sidebar)                 │       │   │
+│   │   │ • Fraud probability gauge chart                    │       │   │
+│   │   │ • Risk tier badge (LOW/MEDIUM/HIGH)                │       │   │
+│   │   │ • Latency & performance metrics                    │       │   │
+│   │   │ • API health status                                │       │   │
+│   │   └────────────────────────────────────────────────────┘       │   │
+│   └─────────────┬──────────────────────────────────────────────────┘   │
+│                 │ HTTP POST /score (JSON)                              │
+│   ┌─────────────▼──────────────────────────────────────────────────┐   │
+│   │          RENDER (Backend Tier - Docker Container)              │   │
+│   │     upi-fraud-engine.onrender.com                              │   │
+│   │   ┌────────────────────────────────────────────────────┐       │   │
+│   │   │  FastAPI Server (uvicorn)                          │       │   │
+│   │   │  ├─ POST /score       [Real-time fraud scoring]    │       │   │
+│   │   │  ├─ GET /health       [System health check]        │       │   │
+│   │   │  ├─ GET /metrics      [Performance metrics]        │       │   │
+│   │   │  └─ GET /docs         [Swagger/OpenAPI]            │       │   │
+│   │   └────────────────────────────────────────────────────┘       │   │
+│   │                           │                                    │   │
+│   │           ┌───────────────┼───────────────┐                    │   │
+│   │           ▼               ▼               ▼                    │   │
+│   │   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐           │   │
+│   │   │  Service     │ │  Metrics &   │ │  Inference   │           │   │
+│   │   │  Layer       │ │  Monitoring  │ │  Layer       │           │   │
+│   │   │service.py    │ │metrics.py    │ │single_predict│           │   │
+│   │   └──────────────┘ └──────────────┘ └──────────────┘           │   │
+│   │                           │                                    │   │
+│   │   ┌────────────────────────┴────────────────────────┐          │   │
+│   │   ▼                                                 ▼          │   │
+│   │ ┌──────────────────┐                    ┌──────────────────┐   │   │
+│   │ │ OnlineFeature    │                    │   ML Model       │   │   │
+│   │ │ Store            │                    │   Layer          │   │   │
+│   │ │ onlinebuilder.py │                    │                  │   │   │
+│   │ │                  │                    │ Stage 1:         │   │   │
+│   │ │ • Computes 482   │                    │ Isolation Forest │   │   │
+│   │ │   features       │                    │ (anomaly scores) │   │   │
+│   │ │ • Velocity       │                    │                  │   │   │
+│   │ │   aggregations   │                    │ Stage 2:         │   │   │
+│   │ │ • Behavioral     │                    │ XGBoost          │   │   │
+│   │ │   signals        │                    │ (0.8953 ROC-AUC) │   │   │
+│   │ │ • Historical     │                    │                  │   │   │
+│   │ │   fraud counts   │                    │ 482 features     │   │   │
+│   │ │ • Device         |                    │ 58 encoders      │   │   │
+│   │ │   fingerprints   │                    │                  │   │   │
+│   │ └──────────────────┘                    └──────────────────┘   │   │
+│   └────────────────────────────────────────────────────────────────┘   │
 │                           │                                            │
-│   ┌───────────────────────▼────────────────────────────────────────┐  │
-│   │    PERSISTENT STORAGE (In Docker - Render)                    │  │
-│   │  ┌──────────────────────────────────────────────────────┐     │  │
-│   │  │ modelsproduction/                                   │     │  │
-│   │  │ ├─ frauddetector.json (2.3 MB XGBoost model)       │     │  │
-│   │  │ ├─ frauddetectorencoders.pkl (58 label encoders)   │     │  │
-│   │  │ ├─ frauddetectorfeatures.txt (482 feature names)   │     │  │
-│   │  │ └─ frauddetectormetadata.json (performance metrics)│     │  │
-│   │  └──────────────────────────────────────────────────────┘     │  │
-│   └────────────────────────────────────────────────────────────────┘  │
-│                                                                         │
+│   ┌───────────────────────▼───────────────────────────────────────┐    │
+│   │    PERSISTENT STORAGE (In Docker - Render)                    │    │
+│   │  ┌──────────────────────────────────────────────────────┐     │    │
+│   │  │ modelsproduction/                                    │     │    │
+│   │  │ ├─ frauddetector.json (2.3 MB XGBoost model)         │     │    │
+│   │  │ ├─ frauddetectorencoders.pkl (58 label encoders)     │     │    │
+│   │  │ ├─ frauddetectorfeatures.txt (482 feature names)     │     │    │
+│   │  │ └─ frauddetectormetadata.json (performance metrics)  │     │    │
+│   │  └──────────────────────────────────────────────────────┘     │    │
+│   └───────────────────────────────────────────────────────────────┘    │
+│                                                                        │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -125,13 +125,13 @@
 ### Phase 2: Ingestion Pipeline (Batch & Streaming)
 ```
 ┌──────────────────────┐
-│  Batch Loader       │
-│ (Training Path)     │
+│  Batch Loader        │
+│ (Training Path)      │
 ├──────────────────────┤
-│ SELECT * FROM txns  │
-│ ORDER BY time       │
-│ → Memory: 4GB      │
-│ → Use: Training     │
+│ SELECT * FROM txns   │
+│ ORDER BY time        │
+│ → Memory: 4GB        │
+│ → Use: Training      │
 └──────────┬───────────┘
            │
    ┌───────┴────────┐
@@ -183,8 +183,8 @@ BATCH        STREAM
 │ 482 Production Features:                 │
 │                                          │
 │ Velocity Features (10):                  │
-│ • payer_txn_count_5min/1h/24h           │
-│ • payer_sum_5min/1h/24h                 │
+│ • payer_txn_count_5min/1h/24h            │
+│ • payer_sum_5min/1h/24h                  │
 │ • device_txn_count_1h/24h                │
 │ • device_distinct_payers_7d              │
 │ • payer_distinct_payees_7d               │
@@ -203,7 +203,7 @@ BATCH        STREAM
 │                                          │
 │ Temporal Guarantees:                     │
 │ ✓ No future information                  │
-│ ✓ Label availability respected          │
+│ ✓ Label availability respected           │
 │ ✓ 48-hour buffer between train/test      │
 └──────────┬───────────────────────────────┘
            │
@@ -218,22 +218,22 @@ BATCH        STREAM
 
 ### Phase 5: Model Training & AB Testing
 ```
-┌─────────────────────────────────────────────┐
-│         Two-Stage Architecture              │
-├─────────────────────────────────────────────┤
-│                                             │
-│  TRAINING DATA (80%):                       │
-│  Jan 2 - May 31, 2025 (151 days)           │
-│  498,108 transactions                       │
-│                       │                     │
-│  ┌────────────────────┴──────────────────┐  │
+┌─────────────────────────────────────────────-┐
+│         Two-Stage Architecture               │
+├─────────────────────────────────────────────-┤
+│                                              │
+│  TRAINING DATA (80%):                        │
+│  Jan 2 - May 31, 2025 (151 days)             │
+│  498,108 transactions                        │
+│                       │                      │
+│  ┌────────────────────┴──────────────────┐   │
 │  │                                        │  │
 │  ▼                                        ▼  │
 │ STAGE 1                               STAGE 2│
 │ Isolation Forest                    XGBoost   │
 │ (Unsupervised)                    (Supervised)│
 │                                               │
-│ Input: 10 velocity features  Input: 482 feats│
+│ Input: 10 velocity features  Input: 482 feats │
 │ Output: anomalyScore         Output: fraud_prob│
 │ AUC: 0.85 (individual)       AUC: 0.8918      │
 │                                               │
@@ -246,16 +246,16 @@ BATCH        STREAM
 │              └──────────────────┘           │
 │                                             │
 │  TEST DATA (20%):                           │
-│  Jun 2 - Jul 2, 2025 (30 days)             │
+│  Jun 2 - Jul 2, 2025 (30 days)              │
 │  85,429 transactions                        │
 │                                             │
 │  Results:                                   │
-│  • Precision (0.5% budget): 92.06%         │
-│  • Recall: 12.81%                          │
-│  • False Alert Rate: 7.94%                 │
-│  • Cost-Benefit: ₹21.6Cr/year ROI         │
+│  • Precision (0.5% budget): 92.06%          │
+│  • Recall: 12.81%                           │
+│  • False Alert Rate: 7.94%                  │
+│  • Cost-Benefit: ₹21.6Cr/year ROI           │
 │                                             │
-└──────────────────────────────────────────────┘
+└─────────────────────────────────────────────┘
            │
     Production Artifacts:
     ├─ frauddetector.json (2.3 MB)
@@ -269,18 +269,18 @@ BATCH        STREAM
 ### Phase 6: Evaluation & Backtesting
 ```
 ┌────────────────────────────────────────────┐
-│  Day-by-Day Replay (Jun 1-7, 2025)        │
+│  Day-by-Day Replay (Jun 1-7, 2025)         │
 ├────────────────────────────────────────────┤
 │                                            │
 │  FOR EACH DAY:                             │
-│  ┌──────────────────────────────────────┐ │
-│  │ 1. Load transactions for DAY         │ │
+│  ┌──────────────────────────────────────┐  │
+│  │ 1. Load transactions for DAY         │  │
 │  │ 2. Compute 482 features (point-in-time)
-│  │ 3. Score with trained model          │ │
-│  │ 4. Apply alert policy (0.5% budget)  │ │
+│  │ 3. Score with trained model          │  │
+│  │ 4. Apply alert policy (0.5% budget)  │  │
 │  │ 5. Evaluate: Precision/Recall/Savings
-│  │ 6. Save daily metrics                │ │
-│  └──────────────────────────────────────┘ │
+│  │ 6. Save daily metrics                │  │
+│  └──────────────────────────────────────┘  │
 │                                            │
 │  RESULTS (7-day aggregate):                │
 │  ┌──────────────────────────────────────┐ │
@@ -294,15 +294,15 @@ BATCH        STREAM
 │  │ Weekly savings: ₹41.4L               │ │
 │  │ Annual projection: ₹21.6Cr ROI       │ │
 │  └──────────────────────────────────────┘ │
-│                                            │
-│  VISUALIZATIONS:                           │
+│                                           │
+│  VISUALIZATIONS:                          │
 │  ✓ Precision/Recall trend (interactive)   │
 │  ✓ Fraud breakdown (caught vs missed)     │
 │  ✓ Financial impact (cumulative savings)  │
 │  ✓ Budget compliance (daily adherence)    │
 │  ✓ Confusion matrix (heatmap)             │
-│                                            │
-└────────────────────────────────────────────┘
+│                                           │
+└───────────────────────────────────────────┘
 ```
 
 ---
